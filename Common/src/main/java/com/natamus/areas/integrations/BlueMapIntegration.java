@@ -11,11 +11,11 @@ import de.bluecolored.bluemap.api.math.Shape;
 
 public class BlueMapIntegration {
     public static void updateBlueMap() {
-//        try {
-//            BlueMapAPI.getInstance().ifPresent(BlueMapIntegration::updateBlueMap);
-//        } catch (NoClassDefFoundError | IllegalStateException ignore) {
-//            System.out.println("BlueMap not loaded");
-//        }
+        try {
+            BlueMapAPI.getInstance().ifPresent(BlueMapIntegration::updateBlueMap);
+        } catch (NoClassDefFoundError | IllegalStateException ignore) {
+            System.out.println("BlueMap not loaded");
+        }
     }
 
     public static void updateBlueMap(BlueMapAPI api) {

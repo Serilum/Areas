@@ -15,10 +15,10 @@ public class ModCommon {
 
 	private static void load() {
 		GenerateJSONFiles.requestJSONFile(Reference.MOD_ID, "area_names.json");
-//		try {
-//			BlueMapAPI.onEnable(BlueMapIntegration::updateBlueMap);
-//		} catch (NoClassDefFoundError | IllegalStateException ignored) {
-//			System.out.println("BlueMap is not loaded");
-//		}
+		try {
+			BlueMapAPI.onEnable(BlueMapIntegration::updateBlueMap);
+		} catch (NoClassDefFoundError | IllegalStateException ignored) {
+			System.out.println("BlueMap is not loaded");
+		}
 	}
 }
