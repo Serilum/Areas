@@ -42,6 +42,11 @@ subprojects {
             name = "Serilum Maven"
             url = "https://github.com/Serilum/.maven/raw/maven/"
         }
+
+        maven {
+            name = "JitPack"
+            url = "https://jitpack.io"
+        }
     }
 
     tasks.withType(JavaCompile).configureEach {
