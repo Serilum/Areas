@@ -25,6 +25,7 @@ dependencies {
 
     modImplementation "com.natamus.collective-ml:collective-fabric:${minecraft_version}-${collective_version}"
     modCompileOnly "com.natamus.collective-ml:collective:${minecraft_version}-${collective_version}"
+    modImplementation "com.github.BlueMap-Minecraft:BlueMapAPI:v${bluemap_version}"
 }
 
 loom {
