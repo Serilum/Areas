@@ -5,6 +5,7 @@ import com.natamus.areas.data.AreaVariables;
 import com.natamus.areas.data.ClientConstants;
 import com.natamus.areas.data.GUIVariables;
 import com.natamus.areas.functions.ZoneFunctions;
+import com.natamus.areas.integrations.BlueMapIntegration;
 import com.natamus.areas.objects.AreaObject;
 import com.natamus.collective.data.GlobalVariables;
 import com.natamus.collective.functions.HashMapFunctions;
@@ -160,6 +161,8 @@ public class Util {
 		if (shouldUpdateSign) {
 			TileEntityFunctions.updateTileEntity(level, signPos, signBlockEntity);
 		}
+
+		BlueMapIntegration.updateBlueMap();
 	}
 
 	public static void enterArea(AreaObject areaObject, Player player) {
@@ -206,6 +209,8 @@ public class Util {
 			String message = "The area " + areaObject.areaName + " no longer exists.";
 			areaChangeMessage(player, message, areaObject.customRGB);
 		}
+
+		BlueMapIntegration.updateBlueMap();
 	}
 
 	public static boolean playerIsEditingASign() {
