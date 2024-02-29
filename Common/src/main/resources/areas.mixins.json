@@ -1,10 +1,8 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.natamus.areas.forge.mixin",
-  "plugin": "com.natamus.collective.forge.mixin.plugin.ForgeMixinConfigPlugin",
+  "package": "com.natamus.areas.mixin",
   "compatibilityLevel": "JAVA_17",
-  "refmap": "areas_forge.refmap.json",
   "mixins": [
 
   ],
