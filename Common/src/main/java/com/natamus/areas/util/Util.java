@@ -15,6 +15,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.SignEditScreen;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -204,6 +205,12 @@ public class Util {
 
 		if (shouldMessage) {
 			String message = "The area " + areaObject.areaName + " no longer exists.";
+
+			BlockPos pPos = player.blockPosition();
+			if (areaObject.location.distSqr(new Vec3i(pPos.getX(), pPos.getY(), pPos.getZ())) > (areaObject.radius*2)) {
+				message = ConfigHandler.leavePrefix + areaObject.areaName + ConfigHandler.leaveSuffix;
+			}
+
 			areaChangeMessage(player, message, areaObject.customRGB);
 		}
 	}
