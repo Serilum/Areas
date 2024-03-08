@@ -65,6 +65,9 @@ public class Util {
 			if (i == 0 && !ZoneFunctions.hasZonePrefix(line)) {
 				return null;
 			}
+			else if (i > 3) {
+				break;
+			}
 			
 			if (line.length() < 1) {
 				continue;
@@ -135,6 +138,10 @@ public class Util {
 
 			i = 0;
 			for (String line : newSignContentList) {
+				if (i > 3) {
+					break;
+				}
+
 				signBlockEntity.setMessage(i, Component.literal(line));
 				i+=1;
 			}
@@ -148,6 +155,9 @@ public class Util {
 				for (String line : signLines) {
 					if (i == 0) {
 						line = "[" + zonePrefix + "] " + radius;
+					}
+					else if (i > 3) {
+						break;
 					}
 
 					signBlockEntity.setMessage(i, Component.literal(line));

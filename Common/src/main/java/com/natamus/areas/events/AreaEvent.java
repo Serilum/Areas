@@ -61,6 +61,9 @@ public class AreaEvent {
 					if (i == 0 && !ZoneFunctions.hasZonePrefix(line)) {
 						continue;
 					}
+					else if (i > 3) {
+						break;
+					}
 
 					if (line.length() < 1) {
 						continue;
