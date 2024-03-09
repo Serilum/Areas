@@ -7,7 +7,7 @@ import com.natamus.areas.data.AreaVariables;
 import com.natamus.areas.util.Util;
 import com.natamus.collective.functions.FABFunctions;
 import com.natamus.collective.functions.HashMapFunctions;
-import com.natamus.collective.functions.StringFunctions;
+import com.natamus.collective.functions.MessageFunctions;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandSourceStack;
@@ -53,7 +53,7 @@ public class ClientCommandAreas {
 			if (te instanceof SignBlockEntity) {
 				if (ZoneFunctions.hasZonePrefix((SignBlockEntity)te)) {
 					if (!sentfirst) {
-						StringFunctions.sendMessage(player, "Area sign positions around you:", ChatFormatting.DARK_GREEN);
+						MessageFunctions.sendMessage(player, "Area sign positions around you:", ChatFormatting.DARK_GREEN);
 						sentfirst = true;
 					}
 
@@ -69,13 +69,13 @@ public class ClientCommandAreas {
 					double distance = Math.round(Math.sqrt(signpos.distSqr(new Vec3i(Mth.floor(pvec.x), Mth.floor(pvec.y), Mth.floor(pvec.z)))) * 100.0) / 100.0;
 					String blocksaway = " (" + distance + " blocks)";
 
-					StringFunctions.sendMessage(player, " " + prefix + "t x=" + signpos.getX() + ", y=" + signpos.getY() + ", z=" + signpos.getZ() + "." + blocksaway, ChatFormatting.YELLOW);
+					MessageFunctions.sendMessage(player, " " + prefix + "t x=" + signpos.getX() + ", y=" + signpos.getY() + ", z=" + signpos.getZ() + "." + blocksaway, ChatFormatting.YELLOW);
 				}
 			}
 		}
 
 		if (!sentfirst) {
-			StringFunctions.sendMessage(player, "There are no area signs around you.", ChatFormatting.DARK_GREEN);
+			MessageFunctions.sendMessage(player, "There are no area signs around you.", ChatFormatting.DARK_GREEN);
 		}
 
 		return 1;
