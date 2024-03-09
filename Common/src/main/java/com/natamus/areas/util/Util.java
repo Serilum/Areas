@@ -9,7 +9,7 @@ import com.natamus.areas.objects.AreaObject;
 import com.natamus.collective.data.GlobalVariables;
 import com.natamus.collective.functions.HashMapFunctions;
 import com.natamus.collective.functions.SignFunctions;
-import com.natamus.collective.functions.StringFunctions;
+import com.natamus.collective.functions.MessageFunctions;
 import com.natamus.collective.functions.TileEntityFunctions;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
@@ -258,7 +258,7 @@ public class Util {
 
 	public static void areaChangeMessage(Player player, String message, String rgb) {
 		if (ConfigHandler.sendChatMessages) {
-			StringFunctions.sendMessage(player, message, ChatFormatting.DARK_GREEN);
+			MessageFunctions.sendMessage(player, message, ChatFormatting.DARK_GREEN);
 		}
 		if (ConfigHandler.showHUDMessages) {
 			GUIVariables.ticksLeftBeforeFade = ConfigHandler.HUDMessageFadeDelayMs/50;
