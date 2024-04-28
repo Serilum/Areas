@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "areas",
-  "version": "5.6",
+  "version": "5.7",
 
   "name": "Areas",
   "description": "Create custom named areas/towns with a radius using signs, which sends join and leave messages.",
@@ -23,7 +23,7 @@
     "fabric": "*",
     "minecraft": ">=1.20",
     "java": ">=17",
-    "collective": ">=7.53"
+    "collective": ">=7.54"
   },
 
   "custom": {

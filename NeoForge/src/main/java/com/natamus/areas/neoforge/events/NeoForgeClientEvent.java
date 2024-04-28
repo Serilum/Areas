@@ -4,18 +4,16 @@ import com.natamus.areas.cmds.ClientCommandAreas;
 import com.natamus.areas.data.ClientConstants;
 import com.natamus.areas.events.ClientEvent;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
-import net.neoforged.neoforge.event.TickEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
 
 @EventBusSubscriber(value = Dist.CLIENT)
 public class NeoForgeClientEvent {
 	@SubscribeEvent
-	public static void onClientTick(TickEvent.ClientTickEvent e) {
-		if (e.phase.equals(TickEvent.Phase.START)) {
-			ClientEvent.onClientTick(ClientConstants.mc);
-		}
+	public static void onClientTick(ClientTickEvent.Pre e) {
+		ClientEvent.onClientTick(ClientConstants.mc);
 	}
 
 	@SubscribeEvent
