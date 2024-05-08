@@ -5,6 +5,7 @@ import com.natamus.areas.events.GUIEvent;
 import com.natamus.areas.util.Reference;
 import com.natamus.collective.config.GenerateJSONFiles;
 import com.natamus.collective.globalcallbacks.CollectiveGuiCallback;
+import com.natamus.collective.services.Services;
 
 public class ModCommon {
 
@@ -16,8 +17,10 @@ public class ModCommon {
 	private static void load() {
 		GenerateJSONFiles.requestJSONFile(Reference.MOD_ID, "area_names.json");
 
-		CollectiveGuiCallback.ON_GUI_RENDER.register(((guiGraphics, tickDelta) -> {
-			GUIEvent.renderOverlay(guiGraphics, tickDelta);
-		}));
+		if (Services.MODLOADER.isClientSide()) {
+			CollectiveGuiCallback.ON_GUI_RENDER.register(((guiGraphics, tickDelta) -> {
+				GUIEvent.renderOverlay(guiGraphics, tickDelta);
+			}));
+		}
 	}
 }

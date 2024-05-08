@@ -6,7 +6,7 @@ logoFile="icon.png"
 
 [[mods]]
 modId="areas"
-version="5.7"
+version="5.8"
 displayName="Areas"
 displayURL="https://serilum.com/mod/areas"
 authors="Rick South"
@@ -22,7 +22,7 @@ If you would like to contribute too, check out https://serilum.com/donate. Appre
 [[dependencies.areas]]
     modId="collective"
     mandatory=true
-    versionRange="[7.55,)"
+    versionRange="[7.56,)"
     ordering="NONE"
     side="BOTH"
 

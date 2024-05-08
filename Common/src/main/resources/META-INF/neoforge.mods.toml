@@ -22,7 +22,7 @@ If you would like to contribute too, check out https://serilum.com/donate. Appre
 [[dependencies.areas]]
     modId="collective"
     type="required"
-    versionRange="[7.55,)"
+    versionRange="[7.56,)"
     ordering="NONE"
     side="BOTH"
 
