@@ -75,7 +75,7 @@ public class Util {
 				continue;
 			}
 			
-			Integer possibleradius = ZoneFunctions.getZonePrefixgetRadius(line.toLowerCase());
+			Integer possibleradius = ZoneFunctions.getRadius(line.toLowerCase());
 			if (possibleradius >= 0) {
 				radius = possibleradius;
 				continue;
