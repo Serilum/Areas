@@ -34,7 +34,7 @@ public class ZoneFunctions {
 		return false;
 	}
 
-	public static Integer getZonePrefixgetRadius(String line) {
+	public static Integer getRadius(String line) {
 		for (String prefix : zonePrefixes) {
 			if (line.startsWith(prefix)) {
 				String[] linespl = line.split("]");
@@ -43,8 +43,13 @@ public class ZoneFunctions {
 				}
 
 				String rest = linespl[1].trim();
-				if (NumberFunctions.isNumeric(rest)) {
-					return Integer.parseInt(rest);
+				try {
+					if (NumberFunctions.isNumeric(rest)) {
+						return Integer.parseInt(rest);
+					}
+				}
+				catch (NumberFormatException ex) {
+					return -1;
 				}
 			}
 		}
