@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "areas",
-  "version": "5.9",
+  "version": "6.0",
 
   "name": "Areas",
   "description": "Create custom named areas/towns with a radius using signs, which sends join and leave messages.",
@@ -23,7 +23,7 @@
     "fabric": "*",
     "minecraft": ">=1.21",
     "java": ">=21",
-    "collective": ">=7.62"
+    "collective": ">=7.78"
   },
 
   "custom": {
@@ -44,11 +44,10 @@
 	  " Alister",
 	  " Andrean Olgo",
 	  " aternosorg",
-	  " BirdieMiner",
 	  " Cherriesaurus",
 	  " Michael W. S.",
+	  " Nahuel Fernandez",
 	  " Shana Gitnick",
-	  " Sukhmai",
 	  " Tyler Behl"
   ]
 }
