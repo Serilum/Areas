@@ -9,7 +9,6 @@ import com.natamus.collective.check.ShouldLoadCheck;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
@@ -42,9 +41,9 @@ public class ModForge {
 
 	private void loadComplete(final FMLLoadCompleteEvent event) {
 		if (FMLEnvironment.dist.equals(Dist.CLIENT)) {
-			MinecraftForge.EVENT_BUS.register(new ForgeClientEvent());
+			MinecraftForge.EVENT_BUS.register(ForgeClientEvent.class);
 		}
-    	MinecraftForge.EVENT_BUS.register(new ForgeAreaEvent());
+    	MinecraftForge.EVENT_BUS.register(ForgeAreaEvent.class);
 	}
 
 	private static void setGlobalConstants() {
