@@ -42,9 +42,9 @@ public class ModForge {
 
 	private void loadComplete(final FMLLoadCompleteEvent event) {
 		if (FMLEnvironment.dist.equals(Dist.CLIENT)) {
-			MinecraftForge.EVENT_BUS.register(new ForgeClientEvent());
+			MinecraftForge.EVENT_BUS.register(ForgeClientEvent.class);
 		}
-    	MinecraftForge.EVENT_BUS.register(new ForgeAreaEvent());
+    	MinecraftForge.EVENT_BUS.register(ForgeAreaEvent.class);
 	}
 
 	private static void setGlobalConstants() {
