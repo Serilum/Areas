@@ -21,6 +21,8 @@ public class ConfigHandler extends DuskConfig {
 	@Entry public static boolean showLeaveMessage = true;
 	@Entry public static String leavePrefix = "Leaving ";
 	@Entry public static String leaveSuffix = ".";
+	@Entry public static boolean overrideLeaveMessage = false;
+	@Entry public static String customLeaveMessage = "Wilderness";
 
 	@Entry public static boolean showHUDTextShadow = true;
 	@Entry(min = 100, max = 360000) public static int HUDMessageFadeDelayMs = 4000;
@@ -63,6 +65,12 @@ public class ConfigHandler extends DuskConfig {
 		));
 		configMetaData.put("leaveSuffix", Arrays.asList(
 			"The suffix of the message whenever a player leaves an area."
+		));
+		configMetaData.put("overrideLeaveMessage", Arrays.asList(
+				"Whether the message when a player leaves an area should be the area name or a custom message."
+		));
+		configMetaData.put("customLeaveMessage", Arrays.asList(
+				"The custom message to display whenever a player leaves an area (if overrideLeaveMessage is true)."
 		));
 		configMetaData.put("showHUDTextShadow", Arrays.asList(
 			"Whether the text shown should be drawn with a shadow."
