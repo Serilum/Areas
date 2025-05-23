@@ -206,7 +206,9 @@ public class Util {
 		boolean shouldMessage = shouldMessagePlayer(areaObject, false);
 
 		if (shouldMessage) {
-			String message = ConfigHandler.leavePrefix + areaObject.areaName + ConfigHandler.leaveSuffix;
+			String message = ConfigHandler.overrideLeaveMessage ?
+					ConfigHandler.customLeaveMessage :
+					ConfigHandler.leavePrefix + areaObject.areaName + ConfigHandler.leaveSuffix;
 			areaChangeMessage(player, message, areaObject.customRGB);
 		}
 	}
