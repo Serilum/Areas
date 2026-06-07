@@ -55,29 +55,28 @@ public class ClientCommandAreas {
 				BlockPos signPos = nearbyBlockEntity.getBlockPos();
 				if (ZoneFunctions.hasZonePrefix((SignBlockEntity)nearbyBlockEntity)) {
 					if (!sentfirst) {
-						MessageFunctions.sendMessage(player, "Area sign positions around you:", ChatFormatting.DARK_GREEN);
+						MessageFunctions.sendTranslatableMessage(player, "collective.areas.message.areasignpositions", ChatFormatting.DARK_GREEN);
 						sentfirst = true;
 					}
 
-					String prefix = "a";
+					String areaName = "";
 					if (HashMapFunctions.computeIfAbsent(AreaVariables.areaObjects, level, k -> new HashMap<BlockPos, AreaObject>()).containsKey(signPos)) {
 						AreaObject ao = AreaVariables.areaObjects.get(level).get(signPos);
-						prefix = ao.areaName + " a";
+						areaName = ao.areaName + " ";
 					}
 					else {
 						Util.getAreaSign(level, signPos);
 					}
 
 					double distance = Math.round(Math.sqrt(signPos.distSqr(new Vec3i(Mth.floor(pvec.x), Mth.floor(pvec.y), Mth.floor(pvec.z)))) * 100.0) / 100.0;
-					String blocksaway = " (" + distance + " blocks)";
 
-					MessageFunctions.sendMessage(player, " " + prefix + "t x=" + signPos.getX() + ", y=" + signPos.getY() + ", z=" + signPos.getZ() + "." + blocksaway, ChatFormatting.YELLOW);
+					MessageFunctions.sendTranslatableMessage(player, " ", "collective.areas.message.signlocation", ChatFormatting.YELLOW, areaName, signPos.getX(), signPos.getY(), signPos.getZ(), distance);
 				}
 			}
 		}
 
 		if (!sentfirst) {
-			MessageFunctions.sendMessage(player, "There are no area signs around you.", ChatFormatting.DARK_GREEN);
+			MessageFunctions.sendTranslatableMessage(player, "collective.areas.message.areasignsaround", ChatFormatting.DARK_GREEN);
 		}
 
 		return 1;
