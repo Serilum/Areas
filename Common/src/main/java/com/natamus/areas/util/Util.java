@@ -230,7 +230,7 @@ public class Util {
 	}
 
 	public static boolean playerIsEditingASign() {
-		Screen screen = ClientConstants.mc.screen;
+		Screen screen = ClientConstants.mc.gui.screen();
 		return screen instanceof SignEditScreen || screen instanceof HangingSignEditScreen;
 	}
 
