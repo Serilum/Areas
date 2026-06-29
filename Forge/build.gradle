@@ -39,7 +39,7 @@ minecraft {
             mods {
                 modClientRun {
                     source sourceSets.main
-                    source project(":Common").sourceSets.main
+                    // source project(":Common").sourceSets.main
                 }
             }
         }
