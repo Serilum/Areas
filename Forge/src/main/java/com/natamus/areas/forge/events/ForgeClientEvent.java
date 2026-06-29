@@ -3,7 +3,6 @@ package com.natamus.areas.forge.events;
 import com.natamus.areas.cmds.ClientCommandAreas;
 import com.natamus.areas.data.ClientConstants;
 import com.natamus.areas.events.ClientEvent;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

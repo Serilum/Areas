@@ -8,7 +8,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 public class ForgeGUIEvent {
 
 	@SubscribeEvent(priority = EventPriority.NORMAL)
-	public void renderOverlay(RenderGuiOverlayEvent.Post e) {
+	public static void renderOverlay(RenderGuiOverlayEvent.Post e) {
 		GUIEvent.renderOverlay(e.getGuiGraphics(), e.getPartialTick());
 	}
 }
