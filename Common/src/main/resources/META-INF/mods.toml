@@ -6,7 +6,7 @@ logoFile="icon.png"
 
 [[mods]]
 modId="areas"
-version="6.3"
+version="6.4"
 displayName="Areas"
 displayURL="https://serilum.com/mod/areas"
 authors="Rick South"
@@ -14,7 +14,7 @@ description='''Create custom named areas/towns with a radius using signs, which 
 '''
 credits='''Thank you very much to my Membership sponsors for supporting the development of this mod:  
 
-Andrean Olgo, aternosorg, Cherriesaurus, Josh, Linda Jansen, Michelle Smith, MWS, Tyler Behl   
+Andrean Olgo, AnyankaT, aternosorg, Cherriesaurus, Josh, Linda Jansen, MWS, Tyler Behl   
 
 If you would like to contribute too, check out https://serilum.com/donate. Appreciate it! <3   
 '''
@@ -22,7 +22,7 @@ If you would like to contribute too, check out https://serilum.com/donate. Appre
 [[dependencies.areas]]
     modId="collective"
     mandatory=true
-    versionRange="[8.29,)"
+    versionRange="[8.39,)"
     ordering="NONE"
     side="BOTH"
 

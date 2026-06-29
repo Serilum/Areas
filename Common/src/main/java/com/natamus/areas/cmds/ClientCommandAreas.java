@@ -5,7 +5,7 @@ import com.natamus.areas.data.AreaVariables;
 import com.natamus.areas.functions.ZoneFunctions;
 import com.natamus.areas.objects.AreaObject;
 import com.natamus.areas.util.Util;
-import com.natamus.collective.functions.FABFunctions;
+import com.natamus.collective.data.BlockEntityData;
 import com.natamus.collective.functions.HashMapFunctions;
 import com.natamus.collective.functions.MessageFunctions;
 import net.minecraft.ChatFormatting;
@@ -14,15 +14,15 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTypes;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -48,14 +48,19 @@ public class ClientCommandAreas {
 		Vec3 pvec = player.position();
 		boolean sentfirst = false;
 
-		List<BlockEntity> blockEntitiesAround = FABFunctions.getBlockEntitiesAroundPosition(level, player.blockPosition(), 200);
+		BlockPos ppos = player.blockPosition();
+
+		List<BlockEntity> blockEntitiesAround = new ArrayList<BlockEntity>();
+		blockEntitiesAround.addAll(BlockEntityData.getCachedBlockEntities(BlockEntityTypes.SIGN, level));
+		blockEntitiesAround.addAll(BlockEntityData.getCachedBlockEntities(BlockEntityTypes.HANGING_SIGN, level));
+
 		for (BlockEntity nearbyBlockEntity : blockEntitiesAround) {
-			BlockState blockEntityState = nearbyBlockEntity.getBlockState();
-			if (blockEntityState.is(BlockTags.ALL_SIGNS) || blockEntityState.is(BlockTags.ALL_HANGING_SIGNS)) {
-				BlockPos signPos = nearbyBlockEntity.getBlockPos();
-				if (ZoneFunctions.hasZonePrefix((SignBlockEntity)nearbyBlockEntity)) {
+			BlockPos signPos = nearbyBlockEntity.getBlockPos();
+			if (signPos.closerThan(ppos, 200)) {
+				BlockEntity liveSign = level.getBlockEntity(signPos);
+				if (liveSign instanceof SignBlockEntity && ZoneFunctions.hasZonePrefix((SignBlockEntity)liveSign)) {
 					if (!sentfirst) {
-						MessageFunctions.sendTranslatableMessage(player, "collective.areas.message.areasignpositions", ChatFormatting.DARK_GREEN);
+						MessageFunctions.sendClientTranslatableMessage(player, "collective.areas.message.areasignpositions", ChatFormatting.DARK_GREEN);
 						sentfirst = true;
 					}
 
@@ -70,13 +75,13 @@ public class ClientCommandAreas {
 
 					double distance = Math.round(Math.sqrt(signPos.distSqr(new Vec3i(Mth.floor(pvec.x), Mth.floor(pvec.y), Mth.floor(pvec.z)))) * 100.0) / 100.0;
 
-					MessageFunctions.sendTranslatableMessage(player, " ", "collective.areas.message.signlocation", ChatFormatting.YELLOW, areaName, signPos.getX(), signPos.getY(), signPos.getZ(), distance);
+					MessageFunctions.sendClientTranslatableMessage(player, " ", "collective.areas.message.signlocation", ChatFormatting.YELLOW, areaName, signPos.getX(), signPos.getY(), signPos.getZ(), distance);
 				}
 			}
 		}
 
 		if (!sentfirst) {
-			MessageFunctions.sendTranslatableMessage(player, "collective.areas.message.areasignsaround", ChatFormatting.DARK_GREEN);
+			MessageFunctions.sendClientTranslatableMessage(player, "collective.areas.message.areasignsaround", ChatFormatting.DARK_GREEN);
 		}
 
 		return 1;

@@ -4,8 +4,10 @@ import com.natamus.areas.config.ConfigHandler;
 import com.natamus.areas.events.GUIEvent;
 import com.natamus.areas.util.Reference;
 import com.natamus.collective.config.GenerateJSONFiles;
+import com.natamus.collective.data.BlockEntityData;
 import com.natamus.collective.globalcallbacks.CollectiveGuiCallback;
 import com.natamus.collective.services.Services;
+import net.minecraft.world.level.block.entity.BlockEntityTypes;
 
 public class ModCommon {
 
@@ -16,6 +18,9 @@ public class ModCommon {
 
 	private static void load() {
 		GenerateJSONFiles.requestJSONFile(Reference.MOD_ID, "area_names.json");
+
+		BlockEntityData.addBlockEntityToCache(BlockEntityTypes.SIGN, false, true);
+		BlockEntityData.addBlockEntityToCache(BlockEntityTypes.HANGING_SIGN, false, true);
 
 		if (Services.MODLOADER.isClientSide()) {
 			CollectiveGuiCallback.ON_GUI_RENDER.register(((guiGraphics, deltaTracker) -> {
