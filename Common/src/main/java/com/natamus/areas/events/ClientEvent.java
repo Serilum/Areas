@@ -18,9 +18,9 @@ import java.util.List;
 public class ClientEvent {
 	public static void onClientTick(Minecraft mc) {
 		Player player = mc.player;
-        if (player == null) {
-            return;
-        }
+		if (player == null) {
+			return;
+		}
 
 		GUIEvent.tickHUDFade();
 

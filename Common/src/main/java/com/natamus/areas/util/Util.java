@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SignBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
+import net.minecraft.world.level.block.entity.SignTextSlot;
 import net.minecraft.world.level.block.entity.SignText;
 
 import java.util.ArrayList;
@@ -139,16 +140,16 @@ public class Util {
 			}
 
 			i = 0;
-			SignText signText = signBlockEntity.getFrontText();
+			SignText.Mutable signText = signBlockEntity.getText(SignTextSlot.FRONT).asMutable();
 			for (String line : newSignContentList) {
 				if (i > 3) {
 					break;
 				}
 
-				signText = signText.setMessage(i, Component.literal(line));
+				signText = signText.setLine(i, Component.literal(line));
 				i+=1;
 			}
-			signBlockEntity.setText(signText, true);
+			signBlockEntity.setText(signText.asImmutable(), SignTextSlot.FRONT);
 
 			shouldUpdateSign = true;
 		}
@@ -164,7 +165,7 @@ public class Util {
 						break;
 					}
 
-					signBlockEntity.getFrontText().setMessage(i, Component.literal(line));
+					signBlockEntity.getText(SignTextSlot.FRONT).asMutable().setLine(i, Component.literal(line));
 					i+=1;
 				}
 

@@ -13,7 +13,7 @@ public class FabricClientCommandAreas {
 			.executes((command) -> {
 				FabricClientCommandSource source = command.getSource();
 				Player player = source.getPlayer();
-                return ClientCommandAreas.areas(player);
+				return ClientCommandAreas.areas(player);
 			})
 		);
 	}

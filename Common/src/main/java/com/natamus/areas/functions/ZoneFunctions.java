@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ZoneFunctions {
-    public static final List<String> zonePrefixes = new ArrayList<String>(Arrays.asList("[na]", "[area]", "[region]", "[zone]"));
+	public static final List<String> zonePrefixes = new ArrayList<String>(Arrays.asList("[na]", "[area]", "[region]", "[zone]"));
 
 	public static boolean hasZonePrefix(String line) {
 		for (String prefix : zonePrefixes) {

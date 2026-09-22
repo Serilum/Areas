@@ -16,7 +16,7 @@ repositories {
     mavenCentral()
     mavenLocal()
 
-    maven { url "https://github.com/Serilum/.maven/raw/maven/" }
+    maven { url "https://maven.serilum.com/" }
 }
 
 base {

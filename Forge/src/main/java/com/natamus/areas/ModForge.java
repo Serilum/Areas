@@ -34,15 +34,15 @@ public class ModForge {
 		RegisterMod.register(Reference.NAME, Reference.MOD_ID, Reference.VERSION, Reference.ACCEPTED_VERSIONS);
 	}
 
-    private void commonSetup(final FMLCommonSetupEvent event) {
+	private void commonSetup(final FMLCommonSetupEvent event) {
 
-    }
+	}
 
 	private void loadComplete(final FMLLoadCompleteEvent event) {
 		if (FMLEnvironment.dist.equals(Dist.CLIENT)) {
 			ForgeClientEvent.registerEventsInBus();
 		}
-    	ForgeAreaEvent.registerEventsInBus();
+		ForgeAreaEvent.registerEventsInBus();
 	}
 
 	private static void setGlobalConstants() {
