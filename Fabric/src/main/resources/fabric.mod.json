@@ -1,35 +1,35 @@
 {
   "schemaVersion": 1,
   "id": "areas",
-  "version": "6.4",
+  "version": "6.5",
 
   "name": "Areas",
   "description": "Create custom named areas/towns with a radius using signs, which sends join and leave messages.",
-  "authors": [ "Rick South" ],
+  "authors": [ "Serilum" ],
   "contact": {
     "homepage": "https://serilum.com/mod/areas",
     "sources": "https://github.com/Serilum/Areas",
     "issues": "https://github.com/Serilum/.issue-tracker/labels/Mod:%20Areas"
   },
 
-  "license": "All Right Reserved",
+  "license": "All Rights Reserved",
   "icon": "icon.png",
 
   "environment": "*",
-  "entrypoints": { "main": [ "com.natamus.areas.ModFabric" ], "client": [ "com.natamus.areas.ModFabricClient" ], "modmenu": [ "com.natamus.areas.fabric.config.IntegrateModMenu" ] },
+  "entrypoints": { "main": [ "com.serilum.areas.ModFabric" ], "client": [ "com.serilum.areas.ModFabricClient" ], "modmenu": [ "com.serilum.areas.fabric.config.IntegrateModMenu" ] },
 
   "depends": {
     "fabricloader": ">=0.15.0",
     "fabric": "*",
     "minecraft": ">=1.21",
     "java": ">=21",
-    "collective": ">=8.39"
+    "collective": ">=8.40"
   },
 
   "custom": {
     "modmenu": {
       "links": {
-        "Donate <3" : "https://ricksouth.com/donate"
+        "Donate <3" : "https://serilum.com/donate"
       }
     }
   },
@@ -38,14 +38,13 @@
 	  " ",
 	  "Thank you very much to my Membership sponsors for supporting the development of this mod!",
 	  " ",
-	  "If you would like to contribute too, check out https://serilum.com/donate.",
+	  "If you would like to contribute too, check out https://serilum.com/donate",
 	  " ",
 	  "Membership sponsors:",
 	  " Andrean Olgo",
 	  " AnyankaT",
 	  " aternosorg",
 	  " Cherriesaurus",
-	  " Josh",
 	  " Linda Jansen",
 	  " MWS",
 	  " Tyler Behl"
