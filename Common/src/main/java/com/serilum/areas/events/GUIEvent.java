@@ -2,6 +2,7 @@ package com.serilum.areas.events;
 
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.natamus.collective.functions.ColourFunctions;
 import com.serilum.areas.config.ConfigHandler;
 import com.serilum.areas.data.ClientConstants;
 import com.serilum.areas.data.GUIVariables;
@@ -27,7 +28,8 @@ public class GUIEvent {
 				GUIVariables.guiOpacity = 255;
 			}
 
-			int colour = FastColor.ARGB32.color(GUIVariables.guiOpacity, ConfigHandler.HUD_RGB_R, ConfigHandler.HUD_RGB_G, ConfigHandler.HUD_RGB_B);
+			int rgb = ColourFunctions.getRgbColour(ConfigHandler.HUD_RGB);
+			int colour = FastColor.ARGB32.color(GUIVariables.guiOpacity, FastColor.ARGB32.red(rgb), FastColor.ARGB32.green(rgb), FastColor.ARGB32.blue(rgb));
 			if (!GUIVariables.rgb.equals("")) {
 				String[] rgbs = GUIVariables.rgb.split(",");
 				if (rgbs.length == 3) {
