@@ -26,9 +26,7 @@ public class ConfigHandler extends DuskConfig {
 	@Entry(min = 100, max = 360000) public static int HUDMessageFadeDelayMs = 4000;
 	@Entry(min = 0, max = 3000) public static int HUDMessageHeightOffset = 10;
 	@Entry(min = 0, max = 10.0) public static double HUD_FontSizeScaleModifier = 1.0;
-	@Entry(min = 0, max = 255) public static int HUD_RGB_R = 100;
-	@Entry(min = 0, max = 255) public static int HUD_RGB_G = 200;
-	@Entry(min = 0, max = 255) public static int HUD_RGB_B = 50;
+	@Entry(rgb = true) public static String HUD_RGB = "100,200,50";
 
 	public static void initConfig() {
 		configMetaData.put("giveUnnamedAreasRandomName", Arrays.asList(
@@ -76,14 +74,8 @@ public class ConfigHandler extends DuskConfig {
 		configMetaData.put("HUD_FontSizeScaleModifier", Arrays.asList(
 			"Increases the font size of the text in the HUD message. If you change this value, make sure to test the different GUI scale settings in-game. 6.0 is considered large."
 		));
-		configMetaData.put("HUD_RGB_R", Arrays.asList(
-			"The red RGB value for the HUD message."
-		));
-		configMetaData.put("HUD_RGB_G", Arrays.asList(
-			"The green RGB value for the HUD message."
-		));
-		configMetaData.put("HUD_RGB_B", Arrays.asList(
-			"The blue RGB value for the HUD message."
+		configMetaData.put("HUD_RGB", Arrays.asList(
+			"The colour of the HUD message, as red, green and blue values from 0 to 255."
 		));
 
 		DuskConfig.init(Reference.NAME, Reference.MOD_ID, ConfigHandler.class);
