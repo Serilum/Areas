@@ -34,6 +34,17 @@ public class ZoneFunctions {
 		return false;
 	}
 
+	public static String getZoneType(String line) {
+		String lowerCaseLine = line.toLowerCase();
+		if (lowerCaseLine.startsWith("[region]")) {
+			return "Region";
+		}
+		else if (lowerCaseLine.startsWith("[zone]")) {
+			return "Zone";
+		}
+		return "Area";
+	}
+
 	public static Integer getRadius(String line) {
 		for (String prefix : zonePrefixes) {
 			if (line.startsWith(prefix)) {

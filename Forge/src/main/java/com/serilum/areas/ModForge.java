@@ -45,6 +45,7 @@ public class ModForge {
 		if (FMLEnvironment.dist.equals(Dist.CLIENT)) {
 			MinecraftForge.EVENT_BUS.register(ForgeClientEvent.class);
 			MinecraftForge.EVENT_BUS.register(ForgeGUIEvent.class);
+			ForgeClientEvent.registerAreaCallbacks();
 		}
 		MinecraftForge.EVENT_BUS.register(ForgeAreaEvent.class);
 	}

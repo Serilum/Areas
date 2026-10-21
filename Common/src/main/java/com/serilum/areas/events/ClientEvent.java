@@ -28,13 +28,17 @@ public class ClientEvent {
 			return;
 		}
 
+		Level level = player.level();
+
 		for (AreaObject enteredAreaObject : AreaVariables.enteredAreas) {
-			if (Util.getAreaSign(enteredAreaObject.level, enteredAreaObject.location) == null) {
+			if (!enteredAreaObject.level.equals(level)) {
+				Util.forgetArea(enteredAreaObject, player);
+			}
+			else if (Util.getAreaSign(enteredAreaObject.level, enteredAreaObject.location) == null) {
 				Util.removedArea(enteredAreaObject, player);
 			}
 		}
 
-		Level level = player.level();
 		BlockPos ppos = player.blockPosition();
 
 		int radius = ConfigHandler.radiusAroundPlayerToCheckForSigns;
@@ -46,7 +50,7 @@ public class ClientEvent {
 		List<AreaObject> allAreaObjects = new ArrayList<AreaObject>();
 		for (BlockEntity nearbyBlockEntity : nearbySigns) {
 			BlockPos nspos = nearbyBlockEntity.getBlockPos();
-			if (!nspos.closerThan(ppos, radius)) {
+			if (!Util.isWithinRadius(nspos, ppos, radius)) {
 				continue;
 			}
 
@@ -64,7 +68,7 @@ public class ClientEvent {
 			}
 
 			BlockPos nspos = areaObject.location;
-			if (ppos.closerThan(nspos, areaObject.radius)) {
+			if (Util.isWithinRadius(ppos, nspos, areaObject.radius)) {
 				if (AreaVariables.enteredAreas.contains(areaObject)) {
 					continue;
 				}
