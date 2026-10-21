@@ -13,6 +13,7 @@ public class ConfigHandler extends DuskConfig {
 	@Entry public static boolean giveUnnamedAreasRandomName = true;
 	@Entry(min = 0, max = 1000) public static int radiusAroundPlayerToCheckForSigns = 100;
 	@Entry(min = 0, max = 1000) public static int defaultAreaRadius = 30;
+	@Entry public static boolean areaRadiusIgnoresHeight = false;
 	@Entry public static boolean sendChatMessages = false;
 	@Entry public static boolean showHUDMessages = true;
 	@Entry public static boolean showEnterMessage = true;
@@ -28,6 +29,18 @@ public class ConfigHandler extends DuskConfig {
 	@Entry(min = 0, max = 10.0) public static double HUD_FontSizeScaleModifier = 1.0;
 	@Entry(rgb = true) public static String HUD_RGB = "100,200,50";
 
+	@Entry public static boolean useSeparateRegionAndZoneSettings = false;
+	@Entry public static String regionEnterPrefix = "Entering ";
+	@Entry public static String regionEnterSuffix = ".";
+	@Entry public static String regionLeavePrefix = "Leaving ";
+	@Entry public static String regionLeaveSuffix = ".";
+	@Entry(rgb = true) public static String region_HUD_RGB = "100,200,50";
+	@Entry public static String zoneEnterPrefix = "Entering ";
+	@Entry public static String zoneEnterSuffix = ".";
+	@Entry public static String zoneLeavePrefix = "Leaving ";
+	@Entry public static String zoneLeaveSuffix = ".";
+	@Entry(rgb = true) public static String zone_HUD_RGB = "100,200,50";
+
 	public static void initConfig() {
 		configMetaData.put("giveUnnamedAreasRandomName", Arrays.asList(
 			"When enabled, gives signs without an area name a randomly chosen one from a preset list."
@@ -37,6 +50,9 @@ public class ConfigHandler extends DuskConfig {
 		));
 		configMetaData.put("defaultAreaRadius", Arrays.asList(
 			"The default radius for areas when it's left empty on the sign. It will be added automatically."
+		));
+		configMetaData.put("areaRadiusIgnoresHeight", Arrays.asList(
+			"When enabled, only the horizontal distance to an area sign counts, so an area reaches from the bottom to the top of the world within its radius. Useful for tall buildings."
 		));
 		configMetaData.put("sendChatMessages", Arrays.asList(
 			"When enabled, sends the player the area notifications in chat."
@@ -76,6 +92,39 @@ public class ConfigHandler extends DuskConfig {
 		));
 		configMetaData.put("HUD_RGB", Arrays.asList(
 			"The colour of the HUD message, as red, green and blue values from 0 to 255."
+		));
+		configMetaData.put("useSeparateRegionAndZoneSettings", Arrays.asList(
+			"When enabled, signs starting with [Region] or [Zone] use the region and zone settings below for their messages and colour, instead of the general ones. [Area] signs always use the general settings."
+		));
+		configMetaData.put("regionEnterPrefix", Arrays.asList(
+			"The prefix of the message whenever a player enters a region."
+		));
+		configMetaData.put("regionEnterSuffix", Arrays.asList(
+			"The suffix of the message whenever a player enters a region."
+		));
+		configMetaData.put("regionLeavePrefix", Arrays.asList(
+			"The prefix of the message whenever a player leaves a region."
+		));
+		configMetaData.put("regionLeaveSuffix", Arrays.asList(
+			"The suffix of the message whenever a player leaves a region."
+		));
+		configMetaData.put("region_HUD_RGB", Arrays.asList(
+			"The colour of the HUD message for regions, as red, green and blue values from 0 to 255."
+		));
+		configMetaData.put("zoneEnterPrefix", Arrays.asList(
+			"The prefix of the message whenever a player enters a zone."
+		));
+		configMetaData.put("zoneEnterSuffix", Arrays.asList(
+			"The suffix of the message whenever a player enters a zone."
+		));
+		configMetaData.put("zoneLeavePrefix", Arrays.asList(
+			"The prefix of the message whenever a player leaves a zone."
+		));
+		configMetaData.put("zoneLeaveSuffix", Arrays.asList(
+			"The suffix of the message whenever a player leaves a zone."
+		));
+		configMetaData.put("zone_HUD_RGB", Arrays.asList(
+			"The colour of the HUD message for zones, as red, green and blue values from 0 to 255."
 		));
 
 		DuskConfig.init(Reference.NAME, Reference.MOD_ID, ConfigHandler.class);

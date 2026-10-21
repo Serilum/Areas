@@ -41,6 +41,7 @@ public class ModNeoForge {
 	private void loadComplete(final FMLLoadCompleteEvent event) {
 		if (FMLEnvironment.getDist().equals(Dist.CLIENT)) {
 			NeoForge.EVENT_BUS.register(NeoForgeClientEvent.class);
+			NeoForgeClientEvent.registerAreaCallbacks();
 		}
 		NeoForge.EVENT_BUS.register(NeoForgeAreaEvent.class);
 	}
