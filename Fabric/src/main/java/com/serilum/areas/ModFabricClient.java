@@ -1,6 +1,8 @@
 package com.serilum.areas;
 
+import com.serilum.areas.callbacks.AreaCallback;
 import com.serilum.areas.events.ClientEvent;
+import com.serilum.areas.fabric.api.AreaEvents;
 import com.serilum.areas.fabric.cmds.FabricClientCommandAreas;
 import net.fabricmc.api.ClientModInitializer;
 import com.serilum.areas.util.Reference;
@@ -26,6 +28,14 @@ public class ModFabricClient implements ClientModInitializer {
 
 		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
 			FabricClientCommandAreas.register(dispatcher);
+		});
+
+		AreaCallback.ON_AREA_ENTER.register((player, areaObject) -> {
+			AreaEvents.AREA_ENTER.invoker().onAreaEnter(player, areaObject.areaName, areaObject.areaType, areaObject.location, areaObject.radius);
+		});
+
+		AreaCallback.ON_AREA_LEAVE.register((player, areaObject) -> {
+			AreaEvents.AREA_LEAVE.invoker().onAreaLeave(player, areaObject.areaName, areaObject.areaType, areaObject.location, areaObject.radius);
 		});
 	}
 }

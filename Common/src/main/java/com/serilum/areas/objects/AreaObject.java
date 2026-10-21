@@ -15,14 +15,16 @@ public class AreaObject {
 	public int radius;
 	public String customRGB;
 	public List<String> signLines;
+	public String areaType;
 
-	public AreaObject(Level levelIn, BlockPos locationIn, String areaNameIn, int radiusIn, String customRGBIn, List<String> signLinesIn) {
+	public AreaObject(Level levelIn, BlockPos locationIn, String areaNameIn, int radiusIn, String customRGBIn, List<String> signLinesIn, String areaTypeIn) {
 		level = levelIn;
 		location = locationIn;
 		areaName = areaNameIn;
 		radius = radiusIn;
 		customRGB = customRGBIn;
 		signLines = signLinesIn;
+		areaType = areaTypeIn;
 
 		HashMapFunctions.computeIfAbsent(AreaVariables.areaObjects, level, k -> new HashMap<BlockPos, AreaObject>()).put(location, this);
 	}
