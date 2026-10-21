@@ -43,6 +43,7 @@ public class ModForge {
 	private void loadComplete(final FMLLoadCompleteEvent event) {
 		if (FMLEnvironment.dist.equals(Dist.CLIENT)) {
 			MinecraftForge.EVENT_BUS.register(ForgeClientEvent.class);
+			ForgeClientEvent.registerAreaCallbacks();
 		}
 		MinecraftForge.EVENT_BUS.register(ForgeAreaEvent.class);
 	}

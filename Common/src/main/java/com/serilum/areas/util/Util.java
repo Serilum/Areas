@@ -1,5 +1,6 @@
 package com.serilum.areas.util;
 
+import com.serilum.areas.callbacks.AreaCallback;
 import com.serilum.areas.config.ConfigHandler;
 import com.serilum.areas.data.AreaVariables;
 import com.serilum.areas.data.ClientConstants;
@@ -42,9 +43,8 @@ public class Util {
 		
 		StringBuilder areaNameBuilder = new StringBuilder();
 		String rgb = "";
-		String zonePrefix = "Area";
+		String areaType = "Area";
 		int radius = ConfigHandler.defaultAreaRadius;
-		boolean customrgb = false;
 
 		List<String> signLines = SignFunctions.getSignText(blockEntity);
 
@@ -64,13 +64,16 @@ public class Util {
 		int i = -1;
 		for (String line : signLines) {
 			i += 1;
-			if (i == 0 && !ZoneFunctions.hasZonePrefix(line)) {
-				return null;
+			if (i == 0) {
+				if (!ZoneFunctions.hasZonePrefix(line)) {
+					return null;
+				}
+				areaType = ZoneFunctions.getZoneType(line);
 			}
 			else if (i > 3) {
 				break;
 			}
-			
+
 			if (line.length() < 1) {
 				continue;
 			}
@@ -99,7 +102,7 @@ public class Util {
 
 		String areaName = areaNameBuilder.toString();
 
-		return new AreaObject(level, signPos, areaName, radius, rgb, signLines);
+		return new AreaObject(level, signPos, areaName, radius, rgb, signLines, areaType);
 	}
 
 	public static void updateAreaSign(Level level, BlockPos signPos, SignBlockEntity signBlockEntity, List<String> signLines, String areaName, String zonePrefix, String rgb, int radius, boolean customrgb) {
@@ -189,25 +192,39 @@ public class Util {
 			areaObject = currentAreaObject;
 		}
 
-		boolean shouldMessage = shouldMessagePlayer(areaObject, true);
-
 		if (!AreaVariables.enteredAreas.contains(areaObject)) {
 			AreaVariables.enteredAreas.add(areaObject);
 		}
-		
-		if (shouldMessage) {
-			String message = ConfigHandler.enterPrefix + areaObject.areaName + ConfigHandler.enterSuffix;
-			areaChangeMessage(player, message, areaObject.customRGB);
+
+		if (!changesNamedArea(areaObject)) {
+			return;
 		}
+
+		if (shouldMessagePlayer(areaObject, true)) {
+			areaChangeMessage(player, getEnterMessage(areaObject), getMessageRGB(areaObject));
+		}
+
+		AreaCallback.ON_AREA_ENTER.invoker().onAreaEnter(player, areaObject);
 	}
 	public static void exitArea(AreaObject areaObject, Player player) {
 		AreaVariables.enteredAreas.remove(areaObject);
 
-		boolean shouldMessage = shouldMessagePlayer(areaObject, false);
+		if (!changesNamedArea(areaObject)) {
+			return;
+		}
 
-		if (shouldMessage) {
-			String message = ConfigHandler.leavePrefix + areaObject.areaName + ConfigHandler.leaveSuffix;
-			areaChangeMessage(player, message, areaObject.customRGB);
+		if (shouldMessagePlayer(areaObject, false)) {
+			areaChangeMessage(player, getLeaveMessage(areaObject), getMessageRGB(areaObject));
+		}
+
+		AreaCallback.ON_AREA_LEAVE.invoker().onAreaLeave(player, areaObject);
+	}
+
+	public static void forgetArea(AreaObject areaObject, Player player) {
+		AreaVariables.enteredAreas.remove(areaObject);
+
+		if (changesNamedArea(areaObject)) {
+			AreaCallback.ON_AREA_LEAVE.invoker().onAreaLeave(player, areaObject);
 		}
 	}
 
@@ -215,18 +232,22 @@ public class Util {
 		AreaVariables.areaObjects.get(areaObject.level).remove(areaObject.location);
 		AreaVariables.enteredAreas.remove(areaObject);
 
-		boolean shouldMessage = shouldMessagePlayer(areaObject, false);
+		if (!changesNamedArea(areaObject)) {
+			return;
+		}
 
-		if (shouldMessage) {
+		if (shouldMessagePlayer(areaObject, false)) {
 			String message = "The area " + areaObject.areaName + " no longer exists.";
 
 			BlockPos pPos = player.blockPosition();
 			if (areaObject.location.distSqr(new Vec3i(pPos.getX(), pPos.getY(), pPos.getZ())) > (areaObject.radius*2)) {
-				message = ConfigHandler.leavePrefix + areaObject.areaName + ConfigHandler.leaveSuffix;
+				message = getLeaveMessage(areaObject);
 			}
 
-			areaChangeMessage(player, message, areaObject.customRGB);
+			areaChangeMessage(player, message, getMessageRGB(areaObject));
 		}
+
+		AreaCallback.ON_AREA_LEAVE.invoker().onAreaLeave(player, areaObject);
 	}
 
 	public static boolean playerIsEditingASign() {
@@ -234,7 +255,17 @@ public class Util {
 		return screen instanceof SignEditScreen || screen instanceof HangingSignEditScreen;
 	}
 
-	public static boolean shouldMessagePlayer(AreaObject areaObject, boolean isEntering) {
+	public static boolean isWithinRadius(BlockPos fromPos, BlockPos toPos, int radius) {
+		if (!ConfigHandler.areaRadiusIgnoresHeight) {
+			return fromPos.closerThan(toPos, radius);
+		}
+
+		double xDistance = fromPos.getX() - toPos.getX();
+		double zDistance = fromPos.getZ() - toPos.getZ();
+		return xDistance*xDistance + zDistance*zDistance < (double)radius*radius;
+	}
+
+	public static boolean changesNamedArea(AreaObject areaObject) {
 		if (areaObject.areaName.equals("")) {
 			return false;
 		}
@@ -244,9 +275,17 @@ public class Util {
 				continue;
 			}
 
-			if (areaObject.signLines.equals(enteredAreaObject.signLines)) {
+			if (areaObject.areaName.equals(enteredAreaObject.areaName)) {
 				return false;
 			}
+		}
+
+		return true;
+	}
+
+	public static boolean shouldMessagePlayer(AreaObject areaObject, boolean isEntering) {
+		if (!changesNamedArea(areaObject)) {
+			return false;
 		}
 
 		if (isEntering) {
@@ -265,7 +304,47 @@ public class Util {
 			GUIVariables.hudMessage = message;
 			GUIVariables.rgb = rgb;
 			GUIVariables.guiOpacity = 255;
-		}		
+		}
+	}
+
+	public static String getEnterMessage(AreaObject areaObject) {
+		if (ConfigHandler.useSeparateRegionAndZoneSettings) {
+			if (areaObject.areaType.equals("Region")) {
+				return ConfigHandler.regionEnterPrefix + areaObject.areaName + ConfigHandler.regionEnterSuffix;
+			}
+			else if (areaObject.areaType.equals("Zone")) {
+				return ConfigHandler.zoneEnterPrefix + areaObject.areaName + ConfigHandler.zoneEnterSuffix;
+			}
+		}
+		return ConfigHandler.enterPrefix + areaObject.areaName + ConfigHandler.enterSuffix;
+	}
+
+	public static String getLeaveMessage(AreaObject areaObject) {
+		if (ConfigHandler.useSeparateRegionAndZoneSettings) {
+			if (areaObject.areaType.equals("Region")) {
+				return ConfigHandler.regionLeavePrefix + areaObject.areaName + ConfigHandler.regionLeaveSuffix;
+			}
+			else if (areaObject.areaType.equals("Zone")) {
+				return ConfigHandler.zoneLeavePrefix + areaObject.areaName + ConfigHandler.zoneLeaveSuffix;
+			}
+		}
+		return ConfigHandler.leavePrefix + areaObject.areaName + ConfigHandler.leaveSuffix;
+	}
+
+	public static String getMessageRGB(AreaObject areaObject) {
+		if (!areaObject.customRGB.equals("")) {
+			return areaObject.customRGB;
+		}
+
+		if (ConfigHandler.useSeparateRegionAndZoneSettings) {
+			if (areaObject.areaType.equals("Region")) {
+				return ConfigHandler.region_HUD_RGB;
+			}
+			else if (areaObject.areaType.equals("Zone")) {
+				return ConfigHandler.zone_HUD_RGB;
+			}
+		}
+		return "";
 	}
 	
 	public static Boolean isSignBlock(Block block) {
